@@ -1,31 +1,24 @@
 package learn.process.sSecurity;
 
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+// Kullanıcı adı ve parola alanlarını içeren LoginRequest sınıfı.
+public class LoginRequest {
 
-@RestController
-public class AuthController {
+    private String username;
+    private String password;
 
-	private final UserDetailsService userDetailsService;
-	private final PasswordEncoder passwordEncoder;
+    // Kullanıcı adı getter ve setter metotları.
+    public String getUsername() {
+        return username;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public AuthController(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
-		this.userDetailsService = userDetailsService;
-		this.passwordEncoder = passwordEncoder;
-	}
-
-	@PostMapping("/login")
-	public String login(@RequestBody LoginRequest loginRequest) {
-		UserDetails user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
-
-		if (user != null && passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
-			return "Login successful!";
-		} else {
-			return "Invalid username or password";
-		}
-	}
+    // Parola getter ve setter metotları.
+    public String getPassword() {
+        return password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
